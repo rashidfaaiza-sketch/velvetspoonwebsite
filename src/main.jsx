@@ -31,7 +31,14 @@ import {
   Sparkles,
   ArrowLeft,
 } from "lucide-react";
-import { api, money, imageSrc, imageNote, launchPayment } from "./api";
+import {
+  api,
+  money,
+  imageSrc,
+  imageNote,
+  productPhotos,
+  launchPayment,
+} from "./api";
 import "./style.css";
 const Admin = lazy(() => import("./Admin"));
 const Context = createContext();
@@ -470,12 +477,28 @@ function Home() {
     </>
   );
 }
+function ProductPhoto({ image, alt = "", loading }) {
+  const photo = productPhotos[image];
+  if (!photo) return <img src={imageSrc(image)} alt={alt} loading={loading} />;
+  return (
+    <svg
+      className="product-photo"
+      viewBox={photo.crop}
+      preserveAspectRatio="xMidYMid slice"
+      role={alt ? "img" : undefined}
+      aria-label={alt || undefined}
+      aria-hidden={alt ? undefined : true}
+    >
+      <image href={photo.src} width="1774" height="887" />
+    </svg>
+  );
+}
 function ProductCard({ product: p, index = 0 }) {
   return (
     <article className="product-card">
       <a className={`product-image image-${p.image}`} href={"/product/" + p.id}>
-        <img
-          src={imageSrc(p.image)}
+        <ProductPhoto
+          image={p.image}
           alt={p.name + " — " + imageNote(p.image)}
           loading="lazy"
         />
@@ -574,8 +597,8 @@ function MenuPage() {
         </div>
       )}
       <p className="caption">
-        Product illustrations are placeholders. Ingredients and allergens must
-        be confirmed with the baker.
+        AI-generated product images are illustrative. Ingredients and allergens
+        must be confirmed with the baker.
       </p>
     </section>
   );
@@ -611,8 +634,8 @@ function ProductPage({ id }) {
       </a>
       <div className="product-detail">
         <div className="detail-image">
-          <img
-            src={imageSrc(p.image)}
+          <ProductPhoto
+            image={p.image}
             alt={p.name + " — " + imageNote(p.image)}
           />
           <span>{imageNote(p.image)}</span>
@@ -846,7 +869,7 @@ function Checkout() {
                 <div className="cart-lines">
                   {items.map((i, n) => (
                     <article className="cart-line" key={n}>
-                      <img src={imageSrc(i.p?.image)} alt="" />
+                      <ProductPhoto image={i.p?.image} alt="" />
                       <div>
                         <h3>{i.p?.name || "Unavailable product"}</h3>
                         <p>
@@ -1746,8 +1769,8 @@ function Gallery() {
         {catalog.products.map((p) => (
           <figure key={p.id}>
             <a href={"/product/" + p.id}>
-              <img
-                src={imageSrc(p.image)}
+              <ProductPhoto
+                image={p.image}
                 alt={p.name + " — " + imageNote(p.image)}
                 loading="lazy"
               />

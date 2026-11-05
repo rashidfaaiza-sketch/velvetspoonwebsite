@@ -28,15 +28,32 @@ export const money = (n) =>
     currency: "INR",
     maximumFractionDigits: n % 100 ? 2 : 0,
   }).format(n / 100);
+// Crop the approved review sheets in the browser, retaining their exact imagery.
+export const productPhotos = {
+  milk: {
+    src: "/images/tres-leches-biscoff-concepts.png",
+    crop: "26 12 850 710",
+  },
+  biscoff: {
+    src: "/images/tres-leches-biscoff-concepts.png",
+    crop: "897 12 849 710",
+  },
+  coconut: { src: "/images/coconut-rose-concepts.png", crop: "15 15 865 857" },
+  rose: { src: "/images/coconut-rose-concepts.png", crop: "894 15 866 857" },
+};
 export function imageSrc(image) {
-  return image === "brownie"
-    ? "/images/hero.png"
-    : image?.startsWith("/")
-      ? image
-      : `/images/${image || "milk"}.svg`;
+  return (
+    productPhotos[image]?.src ||
+    (image === "brownie"
+      ? "/images/hero.png"
+      : image?.startsWith("/")
+        ? image
+        : `/images/${image || "milk"}.svg`)
+  );
 }
 export function imageNote(image) {
   if (image?.startsWith("/media/")) return "Product photograph";
+  if (productPhotos[image]) return "AI-generated illustrative image";
   return image === "brownie"
     ? "AI-edited reference photograph"
     : "Illustration placeholder · photo pending import";

@@ -512,11 +512,13 @@ small,
   background: #f0e7d9;
   aspect-ratio: 1.04;
 }
-.product-image img {
+.product-image img,
+.product-image .product-photo {
   height: 100%;
   transition: transform 0.6s;
 }
-.product-image:hover img {
+.product-image:hover img,
+.product-image:hover .product-photo {
   transform: scale(1.045);
 }
 .product-image.image-brownie img {
@@ -924,7 +926,8 @@ small,
   position: sticky;
   top: 20px;
 }
-.detail-image img {
+.detail-image img,
+.detail-image .product-photo {
   aspect-ratio: 1/1.1;
   height: auto;
 }
@@ -1102,7 +1105,8 @@ details p {
 .cart-line:first-child {
   padding-top: 0;
 }
-.cart-line > img {
+.cart-line > img,
+.cart-line > .product-photo {
   width: 100px;
   height: 120px;
   border-radius: 7px;
@@ -1327,7 +1331,8 @@ details p {
 .gallery-grid figure {
   margin: 0;
 }
-.gallery-grid img {
+.gallery-grid img,
+.gallery-grid .product-photo {
   aspect-ratio: 1;
   border-radius: 8px;
 }
@@ -2027,7 +2032,8 @@ details p {
     position: relative;
     top: 0;
   }
-  .detail-image img {
+  .detail-image img,
+  .detail-image .product-photo {
     aspect-ratio: 1.05;
   }
   .product-detail h1 {
@@ -2085,7 +2091,8 @@ details p {
     grid-template-columns: 75px 1fr auto;
     gap: 13px;
   }
-  .cart-line > img {
+  .cart-line > img,
+  .cart-line > .product-photo {
     width: 75px;
     height: 100px;
   }
@@ -2295,4 +2302,16 @@ details p {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Approved product concepts use an inline SVG viewport to omit review labels. */
+.product-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.detail-image > .product-photo,
+.gallery-grid .product-photo {
+  height: auto;
 }
