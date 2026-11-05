@@ -44,16 +44,19 @@ export const productPhotos = {
 export function imageSrc(image) {
   return (
     productPhotos[image]?.src ||
-    (image === "brownie"
-      ? "/images/hero.png"
-      : image?.startsWith("/")
-        ? image
-        : `/images/${image || "milk"}.svg`)
+    (image === "chocolate"
+      ? "/images/choco-crush.png"
+      : image === "brownie"
+        ? "/images/hero.png"
+        : image?.startsWith("/")
+          ? image
+          : `/images/${image || "milk"}.svg`)
   );
 }
 export function imageNote(image) {
   if (image?.startsWith("/media/")) return "Product photograph";
-  if (productPhotos[image]) return "AI-generated illustrative image";
+  if (productPhotos[image] || image === "chocolate")
+    return "AI-generated illustrative image";
   return image === "brownie"
     ? "AI-edited reference photograph"
     : "Illustration placeholder · photo pending import";
