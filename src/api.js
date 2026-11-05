@@ -53,13 +53,16 @@ export function imageSrc(image) {
           : `/images/${image || "milk"}.svg`)
   );
 }
-export function imageNote(image) {
-  if (image?.startsWith("/media/")) return "Product photograph";
-  if (productPhotos[image] || image === "chocolate")
-    return "AI-generated illustrative image";
-  return image === "brownie"
-    ? "AI-edited reference photograph"
-    : "Illustration placeholder · photo pending import";
+export function imageDescription(image, name) {
+  const descriptions = {
+    milk: "Tres leches cake with cream, rose petals and pistachios",
+    biscoff: "Biscoff pudding layered in a glass jar with biscuit crumbs",
+    coconut: "Coconut pudding topped with sliced almonds",
+    rose: "Rose milk pudding topped with sliced pistachios",
+    chocolate: "Chocolate pudding topped with chocolate shavings",
+    brownie: "Chocolate brownie with a caramel topping",
+  };
+  return descriptions[image] || name;
 }
 export async function launchPayment(order, token, onUpdate, onMessage) {
   const data = await api(`/orders/${order.id}/payment`, {

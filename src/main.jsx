@@ -35,7 +35,7 @@ import {
   api,
   money,
   imageSrc,
-  imageNote,
+  imageDescription,
   productPhotos,
   launchPayment,
 } from "./api";
@@ -341,9 +341,6 @@ function Home() {
             <span>MADE WITH LOVE</span>
           </div>
           <div className="photo-label">A spoonful of something special.</div>
-          <span className="hero-image-note">
-            AI-edited photo · reference supplied by Velvet Spoon
-          </span>
         </div>
         <span className="hero-index">01 / THE SWEET LIFE</span>
       </section>
@@ -429,7 +426,7 @@ function Home() {
         <div className="story-art">
           <img
             src="/images/milk.svg"
-            alt="Dessert illustration placeholder"
+            alt="A dessert served on an ivory plate"
             loading="lazy"
           />
           <span>
@@ -499,7 +496,7 @@ function ProductCard({ product: p, index = 0 }) {
       <a className={`product-image image-${p.image}`} href={"/product/" + p.id}>
         <ProductPhoto
           image={p.image}
-          alt={p.name + " — " + imageNote(p.image)}
+          alt={imageDescription(p.image, p.name)}
           loading="lazy"
         />
         <span className="product-tag">{p.category}</span>
@@ -597,8 +594,7 @@ function MenuPage() {
         </div>
       )}
       <p className="caption">
-        AI-generated product images are illustrative. Ingredients and allergens
-        must be confirmed with the baker.
+        Ingredients and allergens must be confirmed with the baker.
       </p>
     </section>
   );
@@ -636,9 +632,8 @@ function ProductPage({ id }) {
         <div className="detail-image">
           <ProductPhoto
             image={p.image}
-            alt={p.name + " — " + imageNote(p.image)}
+            alt={imageDescription(p.image, p.name)}
           />
-          <span>{imageNote(p.image)}</span>
         </div>
         <div>
           <Eyebrow>{p.category} · MADE TO ORDER</Eyebrow>
@@ -1716,7 +1711,10 @@ function About() {
       </div>
       <div className="story-preview">
         <div className="story-art">
-          <img src="/images/milk.svg" alt="Dessert illustration placeholder" />
+          <img
+            src="/images/milk.svg"
+            alt="A dessert served on an ivory plate"
+          />
           <span>
             comfort. joy.
             <br />
@@ -1771,14 +1769,11 @@ function Gallery() {
             <a href={"/product/" + p.id}>
               <ProductPhoto
                 image={p.image}
-                alt={p.name + " — " + imageNote(p.image)}
+                alt={imageDescription(p.image, p.name)}
                 loading="lazy"
               />
             </a>
-            <figcaption>
-              {p.name}
-              <small>{imageNote(p.image)}</small>
-            </figcaption>
+            <figcaption>{p.name}</figcaption>
           </figure>
         ))}
       </div>
